@@ -19,8 +19,25 @@ duty_cycle = tile_width/(grout_width + tile_width)*100;
 period = tile_width + grout_width;
 
 %create the plot
-x = 0:0.000001:floor_length;
-y3 = grout_depth/2*square(2*pi*(1/period)*x, duty_cycle)-grout_depth/2;
-plot (x,y3)
+x = 0:0.00001:floor_length;
+t = 0:00001:1.66667;
+y = grout_depth/2*square(2*pi*(1/period)*x, duty_cycle)-grout_depth/2;
+y3 = grout_depth/2*square(2*pi*(1/period)*3*t, duty_cycle)-grout_depth/2;
+
+k = 20;
+c = 30;
+
+% simulation = sim("Task_2");
+% 
+% 
+% Q = simulation.out;
+% t_simulation = Q.time;
+% x_simulation = Q.Data(:,1);
+% y_simulation = Q.Data(:,2);
+% theta_simulation = Q.Data(:,3);
+% v_simulation = Q.Data(:,4);
+% w_simulation = Q.Data(:,5);
+
+plot (t,y3)
 grid on;
 
