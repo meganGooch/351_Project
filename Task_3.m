@@ -29,7 +29,6 @@ grid on;
 t = 0:0.0001:1.66667;
 y3 = grout_depth/2*square(2*pi*(1/period)*3*t, duty_cycle)-grout_depth/2;
 
-
 k = 1;
 c = 1;
 m = 20;
