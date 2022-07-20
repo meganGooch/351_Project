@@ -15,7 +15,7 @@ floor_length = 5;
 start_distance = 0;
 
 %find square wave parameters
-duty_cycle = threshold_width/(floor_length - start_distance)*100;
+% duty_cycle = threshold_width/(floor_length - start_distance)*100;
 
 %create the plot
 %x = 0:0.000001:floor_length;
