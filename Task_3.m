@@ -13,6 +13,7 @@ tile_width = 0.3048;
 grout_width = 0.01;
 grout_depth = 0.005;
 floor_length = 5;
+spill_limit = 0.005;
 
 %find square wave parameters
 duty_cycle = tile_width/(grout_width + tile_width)*100;
@@ -26,19 +27,10 @@ y = grout_depth/2*square(2*pi*(1/period)*x, duty_cycle)-grout_depth/2;
 plot (x,y)
 grid on;
 
-t = 0:0.0001:1.66667;
-y3 = grout_depth/2*square(2*pi*(1/period)*3*t, duty_cycle)-grout_depth/2;
+t = x';
+y = y';
 
-k = 1;
-c = 1;
-m = 20;
-
-t = t';
-y3 = y3';
-
-floorSignal = [t, y3];
-
-%floorSignal = timetable(t, y3)
+floorSignal = [t, y];
 
 simulation = sim("Task_2");
 
@@ -48,3 +40,8 @@ y_simulation = Q.Data(:,1);
 d_simulation = Q.Data(:,2);
 x_simulation = Q.Data(:,3);
 
+if max(x_simulation) > spill_limit
+   disp('fail')
+end 
+
+out = max(d_simulation)

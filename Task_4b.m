@@ -11,12 +11,12 @@
 %floor dimensions given in m
 threshold_width = 0.05;
 threshold_height = 0.03;
-floor_length = 1;
-start_distance = 0.5;
-
-
+floor_length = 5;
+start_distance = 1;
+spill_limit = 0.005;
 
 x = linspace(0, floor_length, 1000);
+t=x;
 y = zeros(size(x));
 
 for i = 1:size(y, 2)
@@ -28,9 +28,26 @@ for i = 1:size(y, 2)
     end
 end
 
-plot(x, y);
+plot(x, y)
 
+t = t';
+y = y';
 
+floorSignal3 = [t, y];
+
+simulation = sim("Task_2");
+
+Q = simulation.output;
+t_simulation = Q.time;
+y_simulation = Q.Data(:,1);
+d_simulation = Q.Data(:,2);
+x_simulation = Q.Data(:,3);
+
+if max(x_simulation) > spill_limit
+   disp('fail')
+end 
+ 
+out = max(x_simulation)
 
 
 %find square wave parameters
