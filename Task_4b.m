@@ -8,17 +8,20 @@
 %   3) The signal will represent the vertical displacement of the wheel 
 %   4) The wheel is assumed to be rigid 
 
+clear;
+clc; 
+
 %floor dimensions given in m
 threshold_width = 0.05;
 threshold_height = 0.03;
 floor_length = 5;
 start_distance = 1;
-spill_limit = 0.005;
 
+%generate number of points in the graph
 x = linspace(0, floor_length, 1000);
-t=x;
 y = zeros(size(x));
 
+%generate graph
 for i = 1:size(y, 2)
     if ((start_distance <= x(i)) && (x(i) <= start_distance + threshold_width))
         y(i) = (x(i) - start_distance) * 2 * pi / threshold_width;
@@ -28,32 +31,12 @@ for i = 1:size(y, 2)
     end
 end
 
-plot(x, y)
+%plot the graph
+plot(x, y);
 
-t = t';
-y = y';
+%test the vertical displacment in the vibration simulation 
+t = x;
+[t_simulation, y_simulation, d_simulation, x_simulation, result] = run_vibration_simulation(t, y);
 
-floorSignal3 = [t, y];
-
-simulation = sim("Task_2");
-
-Q = simulation.output;
-t_simulation = Q.time;
-y_simulation = Q.Data(:,1);
-d_simulation = Q.Data(:,2);
-x_simulation = Q.Data(:,3);
-
-if max(x_simulation) > spill_limit
-   disp('fail')
-end 
- 
-out = max(x_simulation)
-
-
-%find square wave parameters
-% duty_cycle = threshold_width/(floor_length + threshold_width)*100;
-
-%create the plot
-% syms x;
-% y = piecewise(x<start_distance, 0,(start_distance<x)&(x<start_distance+threshold_width), (threshold_height*sin(pi/threshold_width*(x-2)).^2), (x>start_distance+threshold_width)&(x<floor_length), 0);
-% fplot (x,y)
+%check if the drink spills
+disp(result);

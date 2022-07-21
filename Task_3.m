@@ -8,40 +8,31 @@
 %   3) The signal will represent the vertical displacement of the wheel 
 %   4) The wheel is assumed to be rigid 
 
+clear;
+clc; 
+
 %floor dimensions given in m
 tile_width = 0.3048;
 grout_width = 0.01;
 grout_depth = 0.005;
 floor_length = 5;
-spill_limit = 0.005;
 
 %find square wave parameters
 duty_cycle = tile_width/(grout_width + tile_width)*100;
 period = tile_width + grout_width;
 
-%create the plot of vertical displacment in terms of horizontal
-%displacement 
-x = 0:0.00001:floor_length;
+%graph of vertical displacment in terms of horizontal displacement 
+x = 0:0.0025:floor_length;
 y = grout_depth/2*square(2*pi*(1/period)*x, duty_cycle)-grout_depth/2;
 
-plot (x,y)
+%plot the graph 
+plot (x,y);
 grid on;
 
-t = x';
-y = y';
+%test the vertical displacment in the vibration simulation 
+t = x;
+[t_simulation, y_simulation, d_simulation, x_simulation, result] = run_vibration_simulation(t, y);
 
-floorSignal = [t, y];
+%check if the drink spills
+disp(result);
 
-simulation = sim("Task_2");
-
-Q = simulation.output;
-t_simulation = Q.time;
-y_simulation = Q.Data(:,1);
-d_simulation = Q.Data(:,2);
-x_simulation = Q.Data(:,3);
-
-if max(x_simulation) > spill_limit
-   disp('fail')
-end 
-
-out = max(d_simulation)
