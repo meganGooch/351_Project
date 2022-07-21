@@ -1,0 +1,20 @@
+function [t_simulation, y_simulation, d_simulation, x_simulation, result] = run_vibration_simulation(t_points, y_points)
+    
+    input_signal = [t_points, y_points];
+    simulation = sim("Task_2");
+    
+    Q = simulation.output;
+    t_simulation = Q.time;
+    y_simulation = Q.Data(:,1);
+    d_simulation = Q.Data(:,2);
+    x_simulation = Q.Data(:,3);
+
+    spill_limit = 0.005;
+
+    if max(x_simulation) > spill_limit
+        result = 'fail';
+    else
+        result = 'pass';
+    end 
+    
+end
