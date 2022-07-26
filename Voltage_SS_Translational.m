@@ -1,20 +1,30 @@
+%SYDE 351 Final Project
+%Group 27
+%Voltage SS
+%Determining SS Voltage Speed
+
+%This file determines the voltage value for the desired translational max
+    %speed
+
 function V_max = Voltage_SS_Translational(v_target)
 
+    %defines max error
     v_err_all = 0.01;
     ss_err_all = 0.01;
     iterations_max = 100;
     
-    %determine voltage for steady state speed%
-    
+    %creates sim and step time
     t_ss = 1;
     t_step = 1;
     
+    %defines initial voltages
     V_l = 0;
     V_u = 1;
     
     condition = 0;
     iterations = 0;
     
+    %finds upper and lower bounds for the voltage
     while ((condition == 0) && (iterations < iterations_max))
     
         iterations = iterations + 1;
@@ -46,6 +56,7 @@ function V_max = Voltage_SS_Translational(v_target)
     iterations = 0;
     v_err = 1;
     
+    %uses bisection method to determine required voltage
     while ((v_err > v_err_all) && (iterations < iterations_max))
     
         iterations = iterations + 1;

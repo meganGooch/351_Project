@@ -1,10 +1,9 @@
-Parameter_Setup;
+%SYDE 351 Final Project
+%Group 27
+%Task 7
+%Path Definition
 
-% v_max = 3;
-% omega_max = -pi/2;
+%This file is used to define the path of the robot during simulation
 
-d = [15 10 8];
-theta = [-pi/2 -pi/2];
-
-% t_accel_d = 8;
-% t_accel_omega = 1; 
+d = [15 10 8];              %Straight line distances to traverse
+theta = [-pi/2 -pi/2];      %Angle to turn in between straight segments
