@@ -10,6 +10,9 @@ clear all;
 close all;
 clc;
 
+Task_3;
+Task_4;
+
 Parameter_Setup;
 Task_7;
 Task_8;
